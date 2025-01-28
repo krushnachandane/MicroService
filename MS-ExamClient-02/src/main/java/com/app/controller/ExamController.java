@@ -66,6 +66,8 @@ public class ExamController {
 	{
 		String url="http://zuul/getadd/patchStuName/"+id;
 			String res = rt.patchForObject(url, s, String.class);
+		
+			
 			return res;
 	}
 }
