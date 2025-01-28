@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.app.model.Student;
 import com.app.service.ExamServiceI;
 
+@RestController
 public class ExamController {
 	
 	@Autowired
@@ -32,10 +34,10 @@ public class ExamController {
 	
 	
 	//get Student Data from Admission to exam Through Their Id
-	@GetMapping("/getStuFromAddToExam/{id}")
+	@GetMapping("/getStudent/{id}")
 	public Student getStuFromAdd(@PathVariable Integer id)
 	{
-		String url = "http://localhost:9091/getSingleStu/"+id;
+		String url = "http://zuul/getadd/getSingleStu/"+id;
 		Student response = rt.getForObject(url,Student.class);
 		return response;
 	}
@@ -44,7 +46,7 @@ public class ExamController {
 	@PutMapping("/updateStu")
 	public String updateStu(@RequestBody Student s)
 	{
-		String url = "http://localhost:9091/updateStudent";
+		String url = "http://zuul/getadd/updateStudent";
 		rt.put(url, s, String.class);
 		return "Update Successfully";
 	}
@@ -53,7 +55,7 @@ public class ExamController {
 	@DeleteMapping("/deleteStu/{id}")
 	public String deleteStu(@PathVariable Integer id)
 	{
-		String url ="http://localhost:9091/deleteStu/"+id;
+		String url ="http://zuul/getadd/deleteStu/"+id;
 		rt.delete(url);
 		return "Delete Student Successfully";
 	}
@@ -62,7 +64,7 @@ public class ExamController {
 	@PatchMapping("/updateStuData/{id}")
 	public String updateStuData(@RequestBody Student s ,@PathVariable Integer id)
 	{
-		String url="http://localhost:9091/patchStuName/"+id;
+		String url="http://zuul/getadd/patchStuName/"+id;
 			String res = rt.patchForObject(url, s, String.class);
 			return res;
 	}
